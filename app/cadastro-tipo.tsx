@@ -18,7 +18,7 @@ export default function CadastroTipo() {
         <TouchableOpacity style={styles.btnComprar} onPress={() => router.push('/cadastro-comprador')}>
           <Text style={styles.btnComprarText}>QUERO COMPRAR</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnVender} onPress={() => {}}>
+        <TouchableOpacity style={styles.btnVender} onPress={() => router.push('/cadastro-vendedor' as any)}>
           <Text style={styles.btnVenderText}>QUERO VENDER</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.replace('/login')}>
