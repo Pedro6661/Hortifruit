@@ -1,5 +1,6 @@
 {
   "expo": {
+<<<<<<< HEAD
     "name": "my-app",
     "slug": "my-app",
     "version": "1.0.0",
@@ -13,11 +14,42 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+=======
+    "name": "AppHortifrut",
+    "slug": "AppHortifrut",
+    "version": "1.0.0",
+
+    "scheme": "AppHortifrut",
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true,
+
+      "tsconfigPaths": true
+    },
+
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+
+    "userInterfaceStyle": "light",
+
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+>>>>>>> 2503c8c (a)
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
+<<<<<<< HEAD
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
@@ -33,6 +65,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+=======
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+>>>>>>> 2503c8c (a)
     }
   }
 }

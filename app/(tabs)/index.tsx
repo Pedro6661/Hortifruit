@@ -1,77 +1,47 @@
-import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+
+import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 
 export default function TabOneScreen() {
-  const categorias = {
-    Frutas: ['Banana', 'Maçã', 'Uva', 'Melancia', 'Manga'],
-    Legumes: ['Cenoura', 'Batata', 'Abobrinha', 'Beterraba'],
-    Laticínios: ['Leite', 'Queijo', 'Iogurte', 'Manteiga'],
-    Verduras: ['Alface', 'Couve', 'Rúcula', 'Espinafre'],
-    Cereais: ['Arroz', 'Aveia', 'Trigo', 'Milho'],
-  };
-
-  const renderCategoria = (titulo: string, itens: string[]) => (
-    <View key={titulo} style={styles.section}>
-      <Text style={styles.sectionTitle}>{titulo}</Text>
-      <View style={styles.itemsContainer}>
-        {itens.map((item) => (
-          <TouchableOpacity key={item} style={styles.itemButton} onPress={() => alert(`${item} selecionado`)}>
-            <Text style={styles.itemText}>{item}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
-  );
-
+  const router = useRouter();
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      <Text style={styles.header}>🌿 Bem-vindo ao HortFruit!</Text>
-
-      {Object.entries(categorias).map(([titulo, itens]) => renderCategoria(titulo, itens))}
-    </ScrollView>
+    <View style={styles.container}>
+      <Text style={styles.title}>Home</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <TouchableOpacity style={styles.logoutBtn} onPress={() => router.replace('/login')}>
+        <Text style={styles.logoutText}>Sair</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  scrollContent: {
-    padding: 20,
-    paddingBottom: 40,
-  },
-  header: {
-    fontSize: 22,
-    fontWeight: '600',
-    marginBottom: 20,
-    color: '#199e4a',
-    textAlign: 'center',
-  },
-  section: {
-    marginBottom: 30,
-  },
-  sectionTitle: {
+  title: {
     fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#199e4a',
+    fontWeight: 'bold',
   },
-  itemsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
   },
-  itemButton: {
-    backgroundColor: '#ddf5e5',
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    borderRadius: 20,
-    marginBottom: 10,
+  logoutBtn: {
+    marginTop: 20,
+    backgroundColor: '#e74c3c',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 6,
   },
-  itemText: {
+  logoutText: {
+    color: '#fff',
+    fontWeight: 'bold',
     fontSize: 16,
-    color: '#199e4a',
-    fontWeight: '500',
   },
 });
