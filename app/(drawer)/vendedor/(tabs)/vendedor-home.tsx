@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 
 export default function VendedorHomeScreen() {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 24 }}>
       {/* Header */}
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())} style={styles.menuBtn}>
+          <Ionicons name="menu" size={28} color="#222" />
+        </TouchableOpacity>
         <Text style={styles.hello}>Olá, Vendedor!</Text>
         <TouchableOpacity style={styles.settingsBtn}>
           <Ionicons name="settings" size={22} color="#222" />
@@ -14,6 +19,7 @@ export default function VendedorHomeScreen() {
       </View>
 
       {/* Painel de Desempenho */}
+      <TouchableOpacity>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Painel de Desempenho</Text>
         <View style={styles.metricsRow}>
@@ -33,6 +39,7 @@ export default function VendedorHomeScreen() {
           <Text style={styles.tab}>Semana</Text>
           <Text style={styles.tab}>Mês</Text>
         </View>
+        
         {/* Gráfico fake */}
         <View style={styles.chartBarRow}>
           <View style={[styles.chartBar, { height: 20 }]} />
@@ -42,8 +49,10 @@ export default function VendedorHomeScreen() {
           <View style={[styles.chartBar, { height: 60 }]} />
         </View>
       </View>
+      </TouchableOpacity>
 
       {/* Adicionar produto */}
+      <TouchableOpacity>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>+ Adicionar produto</Text>
         <View style={styles.produtoRow}>
@@ -57,10 +66,11 @@ export default function VendedorHomeScreen() {
           <Text style={styles.produtoQtd}>8 kg</Text>
         </View>
       </View>
+      </TouchableOpacity>
 
-      {/* Pedidos Recentes e Clientes */}
-      <View style={styles.row}>
-        <View style={[styles.card, { flex: 1, marginRight: 8 }]}> 
+      {/* Pedidos Recentes */}
+      <TouchableOpacity>
+        <View style={styles.card}>
           <Text style={styles.cardTitle}>Pedidos Recentes</Text>
           <View style={styles.tabsRow}>
             <Text style={styles.tabActive}>Todos</Text>
@@ -78,18 +88,10 @@ export default function VendedorHomeScreen() {
             <Text style={styles.pedidoInfo}>Aguardando confirmação</Text>
           </View>
         </View>
-        <View style={[styles.card, { flex: 1, marginLeft: 8 }]}> 
-          <Text style={styles.cardTitle}>Clientes e Avaliações</Text>
-          <View style={styles.starsRow}>
-            {[1,2,3,4,5].map(i => (
-              <Ionicons key={i} name="star" size={18} color="#F7B801" />
-            ))}
-          </View>
-          <Text style={styles.msg}>1 mensagem</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
 
       {/* Info do estabelecimento */}
+      <TouchableOpacity>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Verdurão Dona Florinda</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 4 }}>
@@ -97,6 +99,7 @@ export default function VendedorHomeScreen() {
           <Text style={styles.onlineText}>Online</Text>
         </View>
       </View>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 },
   hello: { fontSize: 20, fontWeight: '500', color: '#222' },
   settingsBtn: { backgroundColor: '#F3F3F3', borderRadius: 20, padding: 8 },
-  card: { backgroundColor: '#E3ECE8', borderRadius: 12, padding: 14, marginBottom: 14 },
+  card: { backgroundColor: '#E3ECE8', borderRadius: 12, padding: 14, marginBottom: 14, width: '100%'},
   cardTitle: { fontWeight: 'bold', fontSize: 16, color: '#3B4B47', marginBottom: 8 },
   metricsRow: { flexDirection: 'row', marginBottom: 4 },
   metricCol: { flex: 1 },
@@ -121,7 +124,6 @@ const styles = StyleSheet.create({
   produtoNome: { fontSize: 15, color: '#222' },
   produtoPreco: { fontWeight: 'bold', color: '#3B4B47', fontSize: 15 },
   produtoQtd: { color: '#3B4B47', fontSize: 13 },
-  row: { flexDirection: 'row', marginBottom: 14 },
   tabsRow: { flexDirection: 'row', gap: 12, marginBottom: 6 },
   pedidoItem: { marginBottom: 6 },
   pedidoId: { fontWeight: 'bold', color: '#222' },
@@ -131,4 +133,5 @@ const styles = StyleSheet.create({
   msg: { color: '#3B4B47', fontSize: 13 },
   statusDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#3DC16B', marginRight: 6 },
   onlineText: { color: '#3B4B47', fontSize: 13 },
+  menuBtn: { marginRight: 12 },
 }); 
