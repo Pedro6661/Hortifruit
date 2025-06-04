@@ -104,7 +104,7 @@ export default function RegisterSeller() {
       </View>
 
       <View className="flex items-center">
-        <TouchableOpacity className="bg-gray-300 w-4/6 py-3 rounded mb-4 items-center" onPress={() => router.push('/login')}>
+        <TouchableOpacity className="bg-gray-300 w-4/6 py-3 rounded mb-4 items-center" onPress={() => router.replace('/(drawer)/vendedor/(tabs)/vendedor-home')}>
           <Text className="font-bold">CRIAR CONTA</Text>
         </TouchableOpacity>
 
