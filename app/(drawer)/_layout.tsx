@@ -24,6 +24,14 @@ export default function DrawerLayout() {
         }}
       />
 
+      <Drawer.Screen
+        name="ConfiguracoesScreen"
+        options={{
+          title: 'Configurações',
+          headerShown: false,
+        }}
+      />
+
      
     
     </Drawer>

@@ -12,7 +12,10 @@ export default function RegisterSeller() {
   const [receiveOffers, setReceiveOffers] = useState(false);
 
   return (
-    <ScrollView className="flex-1 bg-white px-5 pt-12 gap-4">
+    <ScrollView
+      className="flex-1 bg-white px-5 pt-12 gap-4"
+      contentContainerStyle={{ paddingBottom: 80 }}
+    >
       <TouchableOpacity onPress={() => router.back()} className="mb-6">
         <Ionicons name="arrow-back" size={24} color="black" />
       </TouchableOpacity>
@@ -84,7 +87,7 @@ export default function RegisterSeller() {
         </View>
       </View>
 
-      <View className="flex-row items-center gap-2 top-5">
+      <View className="flex-row items-center gap-2 mb-4">
         <Checkbox value={agreeTerms} onValueChange={setAgreeTerms} />
         <Text className="text-sm">
           Li e concordo com os{' '}
@@ -93,25 +96,24 @@ export default function RegisterSeller() {
         </Text>
       </View>
 
-      <View className="flex-row items-center gap-2 top-7 mb-4">
+      <View className="flex-row items-center gap-2 mb-4">
         <Checkbox value={receiveOffers} onValueChange={setReceiveOffers} />
         <Text className="text-sm">
           Desejo receber ofertas e avisos de campanhas em meu e-mail.
         </Text>
       </View>
 
-      <View className="flex items-center top-10 ">
-        <TouchableOpacity className="bg-gray-300 w-4/6 py-3 rounded mb-4 items-center">
+      <View className="flex items-center">
+        <TouchableOpacity className="bg-gray-300 w-4/6 py-3 rounded mb-4 items-center" onPress={() => router.push('/login')}>
           <Text className="font-bold">CRIAR CONTA</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/login')}>
-          <Text className="text-green-700 underline text-center text-sm">
+        <TouchableOpacity >
+          <Text className="text-green-700 underline text-center text-sm" >
             Já possui conta? Entrar
           </Text>
         </TouchableOpacity>
       </View>
-      
     </ScrollView>
   );
 }

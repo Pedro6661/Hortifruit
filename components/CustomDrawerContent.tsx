@@ -20,7 +20,15 @@ export default function CustomDrawerContent(props: any) {
       </View>
 
       {menuItems.map((item, index) => (
-        <TouchableOpacity key={index} className="py-2 border-b border-gray-300">
+        <TouchableOpacity
+          key={index}
+          className="py-2 border-b border-gray-300"
+          onPress={() => {
+            if (item === 'Configurações') {
+              props.navigation.navigate('ConfiguracoesScreen');
+            }
+          }}
+        >
           <Text className="text-base">{item}</Text>
         </TouchableOpacity>
       ))}
