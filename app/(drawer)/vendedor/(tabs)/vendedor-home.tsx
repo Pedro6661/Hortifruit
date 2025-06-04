@@ -2,9 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
+import type { DrawerNavigationProp } from '@react-navigation/drawer';
 
 export default function VendedorHomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const handleAdicionarProduto = () => {
+    navigation.navigate('adicionar-produto');
+  };
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 24 }}>
       {/* Header */}
@@ -52,7 +56,7 @@ export default function VendedorHomeScreen() {
       </TouchableOpacity>
 
       {/* Adicionar produto */}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleAdicionarProduto}>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>+ Adicionar produto</Text>
         <View style={styles.produtoRow}>
