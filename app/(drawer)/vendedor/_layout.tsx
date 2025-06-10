@@ -33,6 +33,14 @@ export default function VendedorDrawerLayout() {
           headerShown: false,
         }}
       />
+      <Drawer.Screen
+        name="perfil-vendedor"
+        options={{
+          title: 'Perfil',
+          drawerLabel: 'Perfil',
+          headerShown: false,
+        }}
+      />
     </Drawer>
   );
 }

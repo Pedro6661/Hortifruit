@@ -81,7 +81,7 @@ export default function LoginScreen() {
         onChangeText={(value) => setFormData(prev => ({ ...prev, password: value }))}
       />
 
-      <TouchableOpacity className="self-end mb-4">
+      <TouchableOpacity className="self-end mb-4" onPress={() => router.push('/recuperar-senha')}>
         <Text className="text-green-600 text-sm">Esqueceu sua senha?</Text>
       </TouchableOpacity>
 

@@ -16,7 +16,7 @@ export default function VendedorHomeScreen() {
   }, []);
 
   const handleAdicionarProduto = () => {
-    navigation.navigate('adicionar-produto');
+    navigation.navigate('adcionar-produto');
   };
 
   return (
@@ -72,12 +72,12 @@ export default function VendedorHomeScreen() {
         <View style={styles.produtoRow}>
           <Text style={styles.produtoNome}>Cebola</Text>
           <Text style={styles.produtoPreco}>R$ 6,70</Text>
-          <Text style={styles.produtoQtd}>25 kg</Text>
+          <Text style={styles.produtoQtd}>25 und</Text>
         </View>
         <View style={styles.produtoRow}>
           <Text style={styles.produtoNome}>Repolho</Text>
           <Text style={styles.produtoPreco}>R$ 4,99</Text>
-          <Text style={styles.produtoQtd}>8 kg</Text>
+          <Text style={styles.produtoQtd}>8 und</Text>
         </View>
       </View>
       </TouchableOpacity>
