@@ -1,0 +1,38 @@
+import { Drawer } from 'expo-router/drawer';
+import VendedorDrawerContent from '../../../components/VendedorDrawerContent';
+
+export default function VendedorDrawerLayout() {
+  return (
+    <Drawer
+      drawerContent={(props) => <VendedorDrawerContent {...props} />}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Drawer.Screen
+        name="vendedor-home"
+        options={{
+          title: 'Home',
+          drawerLabel: 'Home',
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="adcionar-produto"
+        options={{
+          title: 'Adicionar Produto',
+          drawerLabel: 'Adicionar Produto',
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="pedidos-recentes"
+        options={{
+          title: 'Pedidos Recentes',
+          drawerLabel: 'Pedidos Recentes',
+          headerShown: false,
+        }}
+      />
+    </Drawer>
+  );
+}

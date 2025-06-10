@@ -1,109 +1,99 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [mostrarSenha, setMostrarSenha] = useState(false);
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    userType: 'buyer' // 'buyer' ou 'seller'
+  });
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const handleLogin = () => {
+    if (!formData.email || !formData.password) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos');
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      Alert.alert('Erro', 'Por favor, insira um e-mail válido');
+      return;
+    }
+
+    // Aqui você pode adicionar a lógica de autenticação com sua API
+    // Por enquanto, vamos apenas redirecionar para a home apropriada
+    if (formData.userType === 'buyer') {
+      router.push('/(drawer)/(tabs)');
+    } else {
+      router.push('/(drawer)/vendedor/(tabs)/vendedor-home');
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../assets/images/basket.png')} style={styles.image} />
-      <View style={{ width: '85%' }}>
-        <Text style={styles.label}>E-mail</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu e-mail"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <Text style={styles.label}>Senha</Text>
-        <View style={styles.senhaContainer}>
-          <TextInput
-            style={[styles.input, { flex: 1 }]}
-            placeholder="Digite sua senha"
-            value={senha}
-            onChangeText={setSenha}
-            secureTextEntry={!mostrarSenha}
-          />
-          <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
-            <Text style={styles.eyeIcon}>{mostrarSenha ? '🙈' : '👁️'}</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={() => {}}>
-          <Text style={styles.link}>Esqueceu sua senha?</Text>
+    <View className="flex-1 items-center justify-center bg-white px-6">
+      <Image
+        source={require('../assets/logo.jpg')} 
+        className="w-48 h-48 mb-6"
+        resizeMode="contain"
+      />
+
+      <View className="w-full flex-row justify-center mb-6">
+        <TouchableOpacity 
+          onPress={() => setFormData(prev => ({ ...prev, userType: 'buyer' }))}
+          className={`px-6 py-2 rounded-l-full ${formData.userType === 'buyer' ? 'bg-green-600' : 'bg-gray-200'}`}
+        >
+          <Text className={`font-bold ${formData.userType === 'buyer' ? 'text-white' : 'text-gray-600'}`}>
+            Comprador
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => router.replace('/(tabs)')}>
-          <Text style={styles.buttonText}>ENTRAR</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/cadastro-tipo')}>
-          <Text style={styles.link2}>Ainda não possui cadastro? Pressione aqui</Text>
+        <TouchableOpacity 
+          onPress={() => setFormData(prev => ({ ...prev, userType: 'seller' }))}
+          className={`px-6 py-2 rounded-r-full ${formData.userType === 'seller' ? 'bg-green-600' : 'bg-gray-200'}`}
+        >
+          <Text className={`font-bold ${formData.userType === 'seller' ? 'text-white' : 'text-gray-600'}`}>
+            Vendedor
+          </Text>
         </TouchableOpacity>
       </View>
+
+      <Text className="w-full text-gray-700 mb-1">E-mail</Text>
+      <TextInput
+        placeholder="Digite seu e-mail"
+        className="w-full bg-gray-200 p-3 rounded mb-3"
+        value={formData.email}
+        onChangeText={(value) => setFormData(prev => ({ ...prev, email: value }))}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+
+      <Text className="w-full text-gray-700 mb-1">Senha</Text>
+      <TextInput
+        placeholder="Digite sua senha"
+        secureTextEntry
+        className="w-full bg-gray-200 p-3 rounded mb-2"
+        value={formData.password}
+        onChangeText={(value) => setFormData(prev => ({ ...prev, password: value }))}
+      />
+
+      <TouchableOpacity className="self-end mb-4">
+        <Text className="text-green-600 text-sm">Esqueceu sua senha?</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        onPress={handleLogin}
+        className="bg-green-600 w-1/2 py-3 rounded mb-4">
+        <Text className="text-white text-center font-bold">ENTRAR</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => router.push('/register-option')}>
+        <Text className="text-green-700 underline">Ainda não possui cadastro? Pressione aqui</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: 180,
-    height: 140,
-    marginBottom: 40,
-    resizeMode: 'contain',
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 4,
-    marginLeft: 2,
-    color: '#222',
-  },
-  input: {
-    backgroundColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
-    fontSize: 15,
-  },
-  senhaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  eyeIcon: {
-    fontSize: 22,
-    marginLeft: 8,
-  },
-  link: {
-    color: '#199e4a',
-    textAlign: 'right',
-    marginBottom: 18,
-    textDecorationLine: 'underline',
-  },
-  button: {
-    backgroundColor: '#19c437',
-    borderRadius: 6,
-    paddingVertical: 14,
-    alignItems: 'center',
-    marginBottom: 18,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  link2: {
-    color: '#199e4a',
-    textAlign: 'center',
-    textDecorationLine: 'underline',
-  },
-}); 
