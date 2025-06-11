@@ -7,10 +7,13 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import type { DrawerNavigationProp } from '@react-navigation/drawer';
 
 const estados = [
   { label: 'AC', value: 'AC' }, { label: 'AL', value: 'AL' }, { label: 'AP', value: 'AP' },
@@ -26,6 +29,7 @@ const estados = [
 
 export default function PerfilVendedor() {
   const router = useRouter();
+  const navigation = useNavigation<DrawerNavigationProp<any>>();
 
   const [nome, setNome] = useState('Verdurão Dona Florinda');
   const [logradouro, setLogradouro] = useState('Av. das Hortaliças');
@@ -54,13 +58,15 @@ export default function PerfilVendedor() {
       >
         {/* Cabeçalho */}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 32 }}>
-          <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name="chevron-back" size={28} color="#111827" />
+          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())} style={styles.menuBtn}>
+            <Ionicons name="menu" size={28} color="#222" />
           </TouchableOpacity>
-          <Text style={{ flex: 1, textAlign: 'center', fontSize: 24, fontWeight: 'bold', color: '#1F2937' }}>
+          <Text style={{ flex: 1, textAlign: 'center', fontSize: 20, fontWeight: '500', color: '#222' }}>
             Perfil do Vendedor
           </Text>
-          <View style={{ width: 32 }} />
+          <TouchableOpacity onPress={() => navigation.navigate('configuracoes')} style={styles.settingsBtn}>
+            <Ionicons name="settings" size={22} color="#222" />
+          </TouchableOpacity>
         </View>
 
         {/* Avatar + Nome */}
@@ -272,4 +278,15 @@ export default function PerfilVendedor() {
       </ScrollView>
     </KeyboardAvoidingView>
   );
-} 
+}
+
+const styles = StyleSheet.create({
+  menuBtn: {
+    marginRight: 12,
+  },
+  settingsBtn: {
+    backgroundColor: '#F3F3F3',
+    borderRadius: 20,
+    padding: 8,
+  },
+}); 

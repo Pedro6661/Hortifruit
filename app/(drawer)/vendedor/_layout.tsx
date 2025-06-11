@@ -30,7 +30,13 @@ export default function VendedorDrawerLayout() {
         options={{
           title: 'Pedidos Recentes',
           drawerLabel: 'Pedidos Recentes',
-          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="configuracoes"
+        options={{
+          title: 'Configurações',
+          drawerLabel: 'Configurações',
         }}
       />
       <Drawer.Screen
@@ -38,6 +44,14 @@ export default function VendedorDrawerLayout() {
         options={{
           title: 'Perfil',
           drawerLabel: 'Perfil',
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="relatorio-desempenho"
+        options={{
+          title: 'Relatório de Desempenho',
+          drawerLabel: 'Relatório de Desempenho',
           headerShown: false,
         }}
       />

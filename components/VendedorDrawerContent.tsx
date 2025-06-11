@@ -8,6 +8,7 @@ const menuItems = [
   { label: 'Home', route: '/(drawer)/vendedor/vendedor-home', icon: 'home-outline' },
   { label: 'Adicionar Produto', route: '/(drawer)/vendedor/adcionar-produto', icon: 'add-circle-outline' },
   { label: 'Pedidos Recentes', route: '/(drawer)/vendedor/pedidos-recentes', icon: 'receipt-outline' },
+  { label: 'Relatório de Desempenho', route: '/(drawer)/vendedor/relatorio-desempenho', icon: 'stats-chart-outline' },
   { label: 'Perfil', route: '/(drawer)/vendedor/perfil-vendedor', icon: 'person-outline' },
 ] as const;
 
