@@ -1,13 +1,17 @@
 import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import axios from 'axios';
+
+// Para emulador Android, use 10.0.2.2 no lugar de localhost
+const baseURL = 'http://10.0.2.2:3000';
 
 export default function LoginScreen() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    userType: 'buyer' // 'buyer' ou 'seller'
+    userType: 'buyer', // 'buyer' ou 'seller'
   });
 
   const validateEmail = (email: string) => {
@@ -15,7 +19,7 @@ export default function LoginScreen() {
     return emailRegex.test(email);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!formData.email || !formData.password) {
       Alert.alert('Erro', 'Por favor, preencha todos os campos');
       return;
@@ -26,25 +30,37 @@ export default function LoginScreen() {
       return;
     }
 
-    // Aqui você pode adicionar a lógica de autenticação com sua API
-    // Por enquanto, vamos apenas redirecionar para a home apropriada
-    if (formData.userType === 'buyer') {
-      router.push('/(drawer)/(tabs)');
-    } else {
-      router.push('/(drawer)/vendedor/(tabs)/vendedor-home');
+    try {
+      const response = await axios.post(`${baseURL}/auth/login`, {
+        email: formData.email,
+        password: formData.password,
+      });
+
+      // Aqui você pode salvar o token, se houver:
+      // const token = response.data.token;
+
+      // Redireciona com base no tipo de usuário
+      if (formData.userType === 'buyer') {
+        router.push('/(drawer)/(tabs)');
+      } else {
+        router.push('/(drawer)/vendedor/(tabs)/vendedor-home');
+      }
+    } catch (error) {
+      console.log('Erro ao logar:', error);
+      Alert.alert('Erro', 'Email ou senha inválidos');
     }
   };
 
   return (
     <View className="flex-1 items-center justify-center bg-white px-6">
       <Image
-        source={require('../assets/logo.jpg')} 
+        source={require('../assets/logo.jpg')}
         className="w-48 h-48 mb-6"
         resizeMode="contain"
       />
 
       <View className="w-full flex-row justify-center mb-6">
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => setFormData(prev => ({ ...prev, userType: 'buyer' }))}
           className={`px-6 py-2 rounded-l-full ${formData.userType === 'buyer' ? 'bg-green-600' : 'bg-gray-200'}`}
         >
@@ -52,7 +68,7 @@ export default function LoginScreen() {
             Comprador
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={() => setFormData(prev => ({ ...prev, userType: 'seller' }))}
           className={`px-6 py-2 rounded-r-full ${formData.userType === 'seller' ? 'bg-green-600' : 'bg-gray-200'}`}
         >
@@ -85,9 +101,10 @@ export default function LoginScreen() {
         <Text className="text-green-600 text-sm">Esqueceu sua senha?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={handleLogin}
-        className="bg-green-600 w-1/2 py-3 rounded mb-4">
+        className="bg-green-600 w-1/2 py-3 rounded mb-4"
+      >
         <Text className="text-white text-center font-bold">ENTRAR</Text>
       </TouchableOpacity>
 
